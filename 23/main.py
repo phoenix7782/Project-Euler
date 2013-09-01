@@ -1,53 +1,56 @@
 #! /usr/bin/python3.3
 """
-    Project Euler #<>
+    Project Euler #23
     Author: Robert McLaughlin
           <robert@sparkk.us>
     Consult LICENSE file for license.
 """
 
+import math
+
 def get_sum_divisors(n):
-    ret = 0
-    for x in range(1, n):
+    """
+        Get the sum of all divisors of 'n'
+    """
+    ret = 1
+    for x in range(2, int(math.sqrt(n))+1):
         if n % x == 0:
             ret += x
+            if n/x != x:
+                ret += n/x
     return ret
 
 def is_abundant(n):
-    return n > get_sum_divisors(n)
+    """
+        Returns True if n is abundant, otherwise
+        returns False
+    """
+    return n < get_sum_divisors(n)
 
-def get_abundant_numbers():
+def get_abundant_numbers(i, j):
+    """
+        Get a set of all abundant numbers on the 
+        interval [i, j]
+    """
     ret = []
-    for n in range(2, 28124):
+    for n in range(i, j):
         if is_abundant(n):
             ret.append(n)
-    return tuple(ret)
+    return set(ret)
 
 def can_be_represented(numbers, n):
     """
         return True if n can be represented by the sum of two different 
         numbers from 'numbers'
+        'numbers' is a set of nonnegative numbers
     """
-    ret = False
-    for n1 in numbers:
-        for n2 in numbers:
-            if n1 + n2 == n and n1 != n2:
-                ret = True
-                break
-            elif n2 > n:
-                continue
-            elif n1 > n:
-                break
-    return ret
+    return any( (n-abn in numbers) for abn in numbers)
 
 def get_sum():
     ret = 0
-    print("generating numbers")
-    numbers = get_abundant_numbers()
-    print("checking sums")
+    numbers = get_abundant_numbers(2, 28124)
     for x in range(1, 28124):
-        print(x/28124*100//1)
-        if can_be_represented(numbers, x):
+        if not can_be_represented(numbers, x):
             ret += x
     return ret
 
