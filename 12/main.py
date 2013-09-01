@@ -1,4 +1,4 @@
-#! /usr/bin/python3.3
+#! /usr/bin/python3
 """
     Project Euler #12
     Author: Robert McLaughlin
@@ -9,32 +9,20 @@ import math
 
 def num_divisors(n):
     ret = 0
-    for x in range(1, n+1):
+    for x in range(1, int(math.sqrt(n))+1):
         if n%x == 0:
-            ret += 1
+            ret += 2
     return ret
-
-def is_triangle(n):
-    """
-        Returns True if this number is a triangle number
-    """
-    i = 0
-    while n > 0:
-        i += 1
-        n -= i
-    return n == 0
 
 def main():
     """
         Returns the solution to the problem
     """
-    return 0
     triangle = 0
     last_num = 0
     while True:
         last_num += 1
         triangle += last_num
-        print(triangle)
         n_div = num_divisors(triangle)
         if n_div > 500:
             break
