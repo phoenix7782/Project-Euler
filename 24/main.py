@@ -30,6 +30,7 @@ def main():
         if n == 1000000:
             ret = permutation
             break
+    # convert to an integer
     new_ret = 0
     for i, n in enumerate(ret):
         new_ret += 10**(len(ret) - i -1) * n
