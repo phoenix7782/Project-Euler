@@ -6,6 +6,8 @@
 	Consult LICENSE file for license.
 """
 
+import math
+
 def is_prime(n):
 	"""
 		Checks to see if 'n' is prime.
@@ -14,7 +16,7 @@ def is_prime(n):
 	"""
 	if n <= 1: return False
 	if n == 2: return True
-	for check in range(2, n//2+1):
+	for check in range(2, round(math.sqrt(n))+1):
 		if n%check == 0:
 			return False
 	return True
